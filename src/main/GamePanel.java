@@ -25,14 +25,12 @@ public class GamePanel extends JPanel implements Runnable {
     @Override
     public void run() {
         long initialTime = System.nanoTime();
-        long currentTime = 0;
-        double delta = 0;
         final int FPS = 60;
         final long OPTIMAL_TIME = 1000000000 / FPS;
 
         while(gameThread != null) {
-            currentTime = System.nanoTime();
-            delta = (double) (currentTime - initialTime) / OPTIMAL_TIME;
+            long currentTime = System.nanoTime();
+            double delta = (double) (currentTime - initialTime) / OPTIMAL_TIME;
             initialTime = currentTime;
 
             if (delta >= 1) {
