@@ -1,7 +1,11 @@
 package main;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -9,6 +13,7 @@ public class GamePanel extends JPanel implements Runnable {
     public static final int WIDTH = 1000;
     Thread gameThread;
     GameBoard gameBoard = new GameBoard();
+    private BufferedImage image;
 
     // Size of panel
     public GamePanel() {
@@ -40,11 +45,18 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
+    public void ImagePanel() throws IOException {
+        image = ImageIO.read(new File("F:/THOMAS/Projet Code/Chess Game/res/piece/w_knight.png"));
+    }
+
     public void paint(Graphics g) {
         super.paintComponent(g);
         //Transform Graphics g into Graphics2D because draw method use Graphics2D parameter
         Graphics2D g2d = (Graphics2D) g;
+
         gameBoard.draw(g2d);
+        g.drawImage(image, 0, 0, null);
+
     }
 
     private void update() {
