@@ -5,22 +5,23 @@ import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
 
-    public static final int HEIGTH = 1000;
+    public static final int HEIGHT = 1000;
     public static final int WIDTH = 1000;
+    Thread gameThread;
+    GameBoard gameBoard = new GameBoard();
 
     // Size of panel
     public GamePanel() {
-        setPreferredSize(new Dimension(WIDTH, HEIGTH));
+        setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(Color.BLACK);
     }
 
-    Thread gameThread;
     public void launchGame() {
         gameThread = new Thread(this);
         gameThread.start();
-
     }
 
+    //Game Loop (maybe can be better ?)
     @Override
     public void run() {
         long initialTime = System.nanoTime();
@@ -33,17 +34,19 @@ public class GamePanel extends JPanel implements Runnable {
             initialTime = currentTime;
 
             if (delta >= 1) {
-                updateGame();
-                repaint();
+                update();
+                repaint(); // calls paint() to draw the chessboard
             }
         }
     }
 
-    private void updateGame() {
-
-    }
-
     public void paint(Graphics g) {
         super.paintComponent(g);
+        //Transform Graphics g into Graphics2D because draw method use Graphics2D parameter
+        Graphics2D g2d = (Graphics2D) g;
+        gameBoard.draw(g2d);
+    }
+
+    private void update() {
     }
 }
