@@ -16,8 +16,9 @@ public class Main {
         window.add(gp);
         window.pack();
 
-        ImageIcon chessIcon = new ImageIcon("\\chess icon.png");
-        window.setIconImage(chessIcon.getImage());
+        // Window icon
+        ImageIcon icon = new ImageIcon("F:/THOMAS/Projet Code/Chess Game/assets/chess icon.png");
+        window.setIconImage(icon.getImage());
 
     }
 }
