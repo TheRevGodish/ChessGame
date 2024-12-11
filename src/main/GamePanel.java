@@ -15,7 +15,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     Thread gameThread;
-
     public void launchGame() {
         gameThread = new Thread(this);
         gameThread.start();
@@ -36,8 +35,6 @@ public class GamePanel extends JPanel implements Runnable {
             if (delta >= 1) {
                 updateGame();
                 repaint();
-                delta = 0;
-
             }
         }
     }

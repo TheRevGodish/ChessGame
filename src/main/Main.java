@@ -7,7 +7,7 @@ public class Main {
 
         JFrame window = new JFrame();
         window.setTitle("Chesss Game");
-        window.setResizable(false);
+        window.setResizable(true);
         window.setVisible(true);
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
