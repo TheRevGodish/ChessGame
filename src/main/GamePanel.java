@@ -12,7 +12,8 @@ public class GamePanel extends JPanel implements Runnable {
     GameBoard gameBoard = new GameBoard();
     Piece piece = new Piece();
 
-    // Size of panel
+
+    // characteristics of panel
     public GamePanel() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(Color.BLACK);
@@ -42,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable {
         }
     }
 
-    public void paint(Graphics g) {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
         //Transform Graphics g into Graphics2D because draw method use Graphics2D parameter
         Graphics2D g2d = (Graphics2D) g;
@@ -61,3 +62,4 @@ public class GamePanel extends JPanel implements Runnable {
     private void update() {
     }
 }
+
