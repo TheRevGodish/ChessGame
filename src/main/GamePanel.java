@@ -11,12 +11,15 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     GameBoard gameBoard = new GameBoard();
     Piece piece = new Piece();
+    Mouse mouse = new Mouse();
 
 
     // characteristics of panel
     public GamePanel() {
         setPreferredSize(new Dimension(WIDTH, HEIGHT));
         setBackground(Color.BLACK);
+        addMouseListener(mouse);
+        addMouseMotionListener(mouse);
     }
 
     public void launchGame() {
@@ -29,16 +32,16 @@ public class GamePanel extends JPanel implements Runnable {
     public void run() {
         long initialTime = System.nanoTime();
         final int FPS = 60;
-        final long OPTIMAL_TIME = 1000000000 / FPS;
+        final long OPTIMAL_TIME = 100000 / FPS;
 
         while(gameThread != null) {
             long currentTime = System.nanoTime();
             double delta = (double) (currentTime - initialTime) / OPTIMAL_TIME;
             initialTime = currentTime;
 
-            if (delta >= 1) {
+            if (delta*1000 >= 1) {
                 update();
-                repaint(); // calls paint() to draw the chessboard
+                repaint(); // calls paintComponent() to draw the chessboard
             }
         }
     }
@@ -60,6 +63,11 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     private void update() {
+        if(mouse.pressed) {
+            mouse.x = getX();
+            mouse.y = getY();
+            System.out.println("x" + mouse.x + "y" + mouse.y);
+        }
     }
 }
 
