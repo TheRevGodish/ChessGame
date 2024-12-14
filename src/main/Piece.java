@@ -85,7 +85,16 @@ public class Piece {
                 "F:/THOMAS/Projet Code/Chess Game/res/piece/" + pieceList.get(12) + ".png"));
         gp.drawImage(image12, 400, 0, null);
 
+    /*String type; // type of piece
+    boolean isWhite; // to know of if piece is white or black
+    int x, y; // position of piece
 
+    public Piece(int x, int y, String type, boolean isWhite) {
+        this.type = type;
+        this.isWhite = isWhite;
+        this.x = x;
+        this.y = y;
+    }*/
 
 
     }

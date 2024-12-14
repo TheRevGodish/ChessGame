@@ -13,14 +13,14 @@ public class Main {
         window.setLocationRelativeTo(null);
         window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-        GamePanel gp = new GamePanel();
-        window.add(gp);
+        Plateau plateau = new Plateau();
+        window.add(plateau);
         window.pack();
-        gp.setLayout(null);
-        gp.launchGame();
+        plateau.setLayout(null);
+        plateau.launchGame();
 
         JButton buttonQuit = new JButton("Quit Chess");
-        gp.add(buttonQuit);
+        plateau.add(buttonQuit);
         buttonQuit.setBounds(850, 387, 100,36);
         buttonQuit.addActionListener(_ -> System.exit(0));
 
