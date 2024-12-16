@@ -3,6 +3,8 @@ package main;
 import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Plateau extends JPanel implements Runnable {
 
@@ -38,7 +40,6 @@ public class Plateau extends JPanel implements Runnable {
                 g2d.fillRect(col * 100, row * 100, 100, 100);
             }
         }
-
 
         //draw chess pieces
         try {
@@ -76,11 +77,11 @@ public class Plateau extends JPanel implements Runnable {
 
 
     private void update() {
-        if(mouse.pressed) {
-            mouse.x = getX();
-            mouse.y = getY();
-            System.out.println("x" + mouse.x + "y" + mouse.y);
+        if (mouse.pressed) {
+
         }
     }
+
 }
+
 

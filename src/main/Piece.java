@@ -8,6 +8,16 @@ import java.io.IOException;
 import java.util.Hashtable;
 
 public class Piece {
+    /*int x, y;
+    boolean isWhite;
+    String type;
+
+    public Piece2(int x, int y, boolean isWhite, String type) {
+        this.x = x;
+        this.y = y;
+        this.isWhite = isWhite;
+        this.type = type;*/
+
 
     public void draw (Graphics2D gp) throws IOException {
         Hashtable<Integer, String> pieceList = new Hashtable<>();

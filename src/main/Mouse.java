@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 
 public class Mouse extends MouseAdapter {
 
-    public boolean pressed;
+    public boolean pressed, moved = false;
     public int x, y;
 
     @Override
@@ -20,6 +20,16 @@ public class Mouse extends MouseAdapter {
         pressed = false;
         x = e.getX();
         y = e.getY();
+    }
+
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        moved = true;
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        moved = false;
     }
 
 }
