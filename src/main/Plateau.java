@@ -84,7 +84,13 @@ public class Plateau {
 
 
     // piece position getter
-    public Piece getPiece(int row, int col) { return piecePlateau[row][col]; }
+    public Piece getPiece(int col, int row) { return piecePlateau[col][row]; }
+
+    public void movePiece(int yStart, int xStart, int xEnd, int yEnd) {
+        Piece piece = piecePlateau[xStart][yStart];
+        piecePlateau[xStart][yStart] = null;
+        piecePlateau[xEnd][yEnd] = piece;
+    }
 
 
     public ImageIcon getImage(Piece piece) {

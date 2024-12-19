@@ -14,7 +14,7 @@ public class ChessGame extends JPanel implements Runnable {
     private static final int CASE_SIZE = 100;
 
     private final Plateau plateau;
-    private Mouse mouse;
+    private Point selectedPiece = null;
     Thread gameThread;
 
     public void launchGame() {
@@ -45,7 +45,6 @@ public class ChessGame extends JPanel implements Runnable {
 
     public ChessGame() {
         plateau = new Plateau();
-        mouse = new Mouse();
         setPreferredSize(new Dimension(8*CASE_SIZE, 8*CASE_SIZE));
 
         // add mouse listener
@@ -54,9 +53,25 @@ public class ChessGame extends JPanel implements Runnable {
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
 
-                int rowPressed = abs((e.getY() / CASE_SIZE) - 8) ;
-                int colPressed = (e.getX() / CASE_SIZE) + 1;
-                char colChar = switch (colPressed) {
+                int rowPressed = (e.getY() / CASE_SIZE);
+                int colPressed = (e.getX() / CASE_SIZE);
+
+                if (selectedPiece != null) {
+                    int startPositionX = selectedPiece.y;
+                    int startPositionY = selectedPiece.x;
+                    System.out.println("selectedPiece.x: " + selectedPiece.x + " selectedPiece.y: " + selectedPiece.y);
+                    plateau.movePiece(startPositionX, startPositionY, rowPressed, colPressed);
+                    selectedPiece = null;
+                    repaint();
+                } else {
+                    if (plateau.getPiece(rowPressed, colPressed) != null) {
+                        selectedPiece = new Point (rowPressed, colPressed);
+                    }
+                }
+
+                int rowToDisplay= abs((e.getY() / CASE_SIZE) - 8);
+                int colToDisplay = (e.getX() / CASE_SIZE) + 1;
+                char colChar = switch (colToDisplay) {
                     case 1 -> 'a';
                     case 2 -> 'b';
                     case 3 -> 'c';
@@ -67,8 +82,7 @@ public class ChessGame extends JPanel implements Runnable {
                     case 8 -> 'h';
                     default -> '_';
                 };
-
-                System.out.println("You clicked on: " + colChar + rowPressed);
+                System.out.println("You clicked on: " + colChar + rowToDisplay);
             }
         });
     }
