@@ -2,6 +2,10 @@ package main;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+import static java.lang.Math.abs;
 
 public class ChessGame extends JPanel implements Runnable {
 
@@ -9,7 +13,8 @@ public class ChessGame extends JPanel implements Runnable {
     private static final int WIDTH = 800;
     private static final int CASE_SIZE = 100;
 
-    private Plateau plateau;
+    private final Plateau plateau;
+    private Mouse mouse;
     Thread gameThread;
 
     public void launchGame() {
@@ -40,9 +45,32 @@ public class ChessGame extends JPanel implements Runnable {
 
     public ChessGame() {
         plateau = new Plateau();
+        mouse = new Mouse();
         setPreferredSize(new Dimension(8*CASE_SIZE, 8*CASE_SIZE));
 
         // add mouse listener
+        addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+
+                int rowPressed = abs((e.getY() / CASE_SIZE) - 8) ;
+                int colPressed = (e.getX() / CASE_SIZE) + 1;
+                char colChar = switch (colPressed) {
+                    case 1 -> 'a';
+                    case 2 -> 'b';
+                    case 3 -> 'c';
+                    case 4 -> 'd';
+                    case 5 -> 'e';
+                    case 6 -> 'f';
+                    case 7 -> 'g';
+                    case 8 -> 'h';
+                    default -> '_';
+                };
+
+                System.out.println("You clicked on: " + colChar + rowPressed);
+            }
+        });
     }
 
     public void paintComponent(Graphics g) {
@@ -68,16 +96,11 @@ public class ChessGame extends JPanel implements Runnable {
                     if (image != null) {
                         g2d.drawImage(image.getImage(),
                                 col * CASE_SIZE, row * CASE_SIZE, CASE_SIZE, CASE_SIZE, this);
-                        /*g2d.setColor(piece.getColor().equals("white") ? Color.WHITE : Color.BLACK);
-                        g2d.fillOval(col * CASE_SIZE, row * CASE_SIZE, CASE_SIZE, CASE_SIZE);*/
                     }
                 }
             }
         }
     }
-
-    /*private void update() {
-    }*/
 
 
     public static void main(String[] args) {
@@ -91,17 +114,11 @@ public class ChessGame extends JPanel implements Runnable {
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-
         ChessGame chess = new ChessGame();
         frame.add(chess);
         frame.pack();
         chess.setLayout(null);
         chess.launchGame();
-
-        /*JButton buttonQuit = new JButton("Quit Chess");
-        frame.add(buttonQuit);
-        buttonQuit.setBounds(850, 387, 100,36);
-        buttonQuit.addActionListener(_ -> System.exit(0));*/
 
         ImageIcon icon = new ImageIcon("F:/THOMAS/Projet Code/Chess ChessGame/res/chess icon.png");
         frame.setIconImage(icon.getImage());

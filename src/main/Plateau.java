@@ -1,16 +1,17 @@
 package main;
 
 import javax.swing.*;
+import java.util.Objects;
 
 
 public class Plateau {
 
-    private Piece[][] plateau;
+    private final Piece[][] piecePlateau;
     private final ImageIcon[] pngBlack;
     private final ImageIcon[] pngWhite;
 
     public Plateau() {
-        plateau = new Piece[8][8]; // create plateau with 8 rows and 8 cols
+        piecePlateau = new Piece[8][8]; // create plateau with 8 rows and 8 cols
         pngBlack = new ImageIcon[6];
         pngWhite = new ImageIcon[6];
         loadImages();
@@ -19,71 +20,71 @@ public class Plateau {
 
     public void loadImages() {
         // load black png for black pieces
-        pngBlack[0] = new ImageIcon(getClass().getResource(
-                "/piece/b_rook.png"));
-        pngBlack[1] = new ImageIcon(getClass().getResource(
-                "/piece/b_knight.png"));
-        pngBlack[2] = new ImageIcon(getClass().getResource(
-                "/piece/b_bishop.png"));
-        pngBlack[3] = new ImageIcon(getClass().getResource(
-                "/piece/b_queen.png"));
-        pngBlack[4] = new ImageIcon(getClass().getResource(
-                "/piece/b_king.png"));
-        pngBlack[5] = new ImageIcon(getClass().getResource(
-                "/piece/b_pawn.png"));
+        pngBlack[0] = new ImageIcon(Objects.requireNonNull(getClass().getResource(
+                "/piece/b_rook.png")));
+        pngBlack[1] = new ImageIcon(Objects.requireNonNull(getClass().getResource(
+                "/piece/b_knight.png")));
+        pngBlack[2] = new ImageIcon(Objects.requireNonNull(getClass().getResource(
+                "/piece/b_bishop.png")));
+        pngBlack[3] = new ImageIcon(Objects.requireNonNull(getClass().getResource(
+                "/piece/b_queen.png")));
+        pngBlack[4] = new ImageIcon(Objects.requireNonNull(getClass().getResource(
+                "/piece/b_king.png")));
+        pngBlack[5] = new ImageIcon(Objects.requireNonNull(getClass().getResource(
+                "/piece/b_pawn.png")));
 
 
         // load white png for white pieces
-        pngWhite[0] = new ImageIcon(getClass().getResource(
-                "/piece/w_rook.png"));
-        pngWhite[1] = new ImageIcon(getClass().getResource(
-                "/piece/w_knight.png"));
-        pngWhite[2] = new ImageIcon(getClass().getResource(
-                "/piece/w_bishop.png"));
-        pngWhite[3] = new ImageIcon(getClass().getResource(
-                "/piece/w_queen.png"));
-        pngWhite[4] = new ImageIcon(getClass().getResource(
-                "/piece/w_king.png"));
-        pngWhite[5] = new ImageIcon(getClass().getResource(
-                "/piece/w_pawn.png"));
+        pngWhite[0] = new ImageIcon(Objects.requireNonNull(getClass().getResource(
+                "/piece/w_rook.png")));
+        pngWhite[1] = new ImageIcon(Objects.requireNonNull(getClass().getResource(
+                "/piece/w_knight.png")));
+        pngWhite[2] = new ImageIcon(Objects.requireNonNull(getClass().getResource(
+                "/piece/w_bishop.png")));
+        pngWhite[3] = new ImageIcon(Objects.requireNonNull(getClass().getResource(
+                "/piece/w_queen.png")));
+        pngWhite[4] = new ImageIcon(Objects.requireNonNull(getClass().getResource(
+                "/piece/w_king.png")));
+        pngWhite[5] = new ImageIcon(Objects.requireNonNull(getClass().getResource(
+                "/piece/w_pawn.png")));
     }
 
 
     private void startPosition() {
 
         // placing white pieces
-        plateau[0][0] = new Piece("black", "rook");
-        plateau[0][1] = new Piece("black", "knight");
-        plateau[0][2] = new Piece("black", "bishop");
-        plateau[0][3] = new Piece("black", "queen");
-        plateau[0][4] = new Piece("black", "king");
-        plateau[0][5] = new Piece("black", "bishop");
-        plateau[0][6] = new Piece("black", "knight");
-        plateau[0][7] = new Piece("black", "rook");
+        piecePlateau[0][0] = new Piece("black", "rook");
+        piecePlateau[0][1] = new Piece("black", "knight");
+        piecePlateau[0][2] = new Piece("black", "bishop");
+        piecePlateau[0][3] = new Piece("black", "queen");
+        piecePlateau[0][4] = new Piece("black", "king");
+        piecePlateau[0][5] = new Piece("black", "bishop");
+        piecePlateau[0][6] = new Piece("black", "knight");
+        piecePlateau[0][7] = new Piece("black", "rook");
 
 
         // placing black pawns
-        for (int col =0; col<8; col++) { plateau[1][col] = new Piece("black", "pawn"); }
+        for (int col =0; col<8; col++) { piecePlateau[1][col] = new Piece("black", "pawn"); }
 
 
         // placing white pieces
-        plateau[7][0] = new Piece("white", "rook");
-        plateau[7][1] = new Piece("white", "knight");
-        plateau[7][2] = new Piece("white", "bishop");
-        plateau[7][3] = new Piece("white", "queen");
-        plateau[7][4] = new Piece("white", "king");
-        plateau[7][5] = new Piece("white", "bishop");
-        plateau[7][6] = new Piece("white", "knight");
-        plateau[7][7] = new Piece("white", "rook");
+        piecePlateau[7][0] = new Piece("white", "rook");
+        piecePlateau[7][1] = new Piece("white", "knight");
+        piecePlateau[7][2] = new Piece("white", "bishop");
+        piecePlateau[7][3] = new Piece("white", "queen");
+        piecePlateau[7][4] = new Piece("white", "king");
+        piecePlateau[7][5] = new Piece("white", "bishop");
+        piecePlateau[7][6] = new Piece("white", "knight");
+        piecePlateau[7][7] = new Piece("white", "rook");
 
 
         // placing white pawns
-        for (int col =0; col<8; col++) { plateau[6][col] = new Piece("white", "pawn"); }
+        for (int col =0; col<8; col++) { piecePlateau[6][col] = new Piece("white", "pawn"); }
     }
 
 
     // piece position getter
-    public Piece getPiece(int row, int col) { return plateau[row][col]; }
+    public Piece getPiece(int row, int col) { return piecePlateau[row][col]; }
 
 
     public ImageIcon getImage(Piece piece) {
