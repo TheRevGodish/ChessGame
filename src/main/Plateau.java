@@ -102,7 +102,7 @@ public class Plateau {
                 case "queen" -> 3;
                 case "king" -> 4;
                 case "pawn" -> 5;
-                default -> 0;
+                default -> -1;
             };
 
             if (piece.getColor().equals("black")) {

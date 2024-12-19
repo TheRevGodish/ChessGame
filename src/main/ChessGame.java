@@ -12,6 +12,7 @@ public class ChessGame extends JPanel implements Runnable {
     private static final int HEIGHT = 800;
     private static final int WIDTH = 800;
     private static final int CASE_SIZE = 100;
+    private String colorToPlay = "white";
 
     private final Plateau plateau;
     private Point selectedPiece = null;
@@ -52,20 +53,28 @@ public class ChessGame extends JPanel implements Runnable {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-
                 int rowPressed = (e.getY() / CASE_SIZE);
                 int colPressed = (e.getX() / CASE_SIZE);
 
                 if (selectedPiece != null) {
                     int startPositionX = selectedPiece.y;
                     int startPositionY = selectedPiece.x;
-                    System.out.println("selectedPiece.x: " + selectedPiece.x + " selectedPiece.y: " + selectedPiece.y);
                     plateau.movePiece(startPositionX, startPositionY, rowPressed, colPressed);
                     selectedPiece = null;
+                    if (colorToPlay.equals("white")) {
+                        colorToPlay = "black";
+                    } else { colorToPlay = "white"; }
                     repaint();
                 } else {
                     if (plateau.getPiece(rowPressed, colPressed) != null) {
                         selectedPiece = new Point (rowPressed, colPressed);
+                        Piece pieceToTest = plateau.getPiece(rowPressed, colPressed);
+                        String colorToCheck = pieceToTest.getColor();
+                        if (!colorToCheck.equals(colorToPlay)) {
+                            selectedPiece = null;
+                            System.out.println(colorToPlay.substring(0, 1).toUpperCase() +
+                                    colorToPlay.substring(1) + "s to play!");
+                        }
                     }
                 }
 
