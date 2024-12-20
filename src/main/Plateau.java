@@ -6,7 +6,7 @@ import java.util.Objects;
 
 public class Plateau {
 
-    private final Piece[][] piecePlateau;
+    public final Piece[][] piecePlateau;
     private final ImageIcon[] pngBlack;
     private final ImageIcon[] pngWhite;
 

@@ -16,6 +16,7 @@ public class ChessGame extends JPanel implements Runnable {
 
     private final Plateau plateau;
     private Point selectedPiece = null;
+    private Move move;
     Thread gameThread;
 
     public void launchGame() {
@@ -55,16 +56,29 @@ public class ChessGame extends JPanel implements Runnable {
                 super.mousePressed(e);
                 int rowPressed = (e.getY() / CASE_SIZE);
                 int colPressed = (e.getX() / CASE_SIZE);
+                move = new Move();
 
                 if (selectedPiece != null) {
+                    //noinspection SuspiciousNameCombination
                     int startPositionX = selectedPiece.y;
+                    //noinspection SuspiciousNameCombination
                     int startPositionY = selectedPiece.x;
-                    plateau.movePiece(startPositionX, startPositionY, rowPressed, colPressed);
-                    selectedPiece = null;
-                    if (colorToPlay.equals("white")) {
-                        colorToPlay = "black";
-                    } else { colorToPlay = "white"; }
-                    repaint();
+
+                    Piece pieceToTest = plateau.getPiece(startPositionY, startPositionX);
+                    String pieceType = pieceToTest.getType();
+                    String pieceColor = pieceToTest.getColor();
+                    boolean moveToTest = move.isValid(startPositionX, startPositionY,
+                                                        colPressed, rowPressed, pieceType, pieceColor);
+                    if (moveToTest) {
+                        //noinspection SuspiciousNameCombination
+                        plateau.movePiece(startPositionX, startPositionY, rowPressed, colPressed);
+                        selectedPiece = null;
+                        if (colorToPlay.equals("white")) {
+                            colorToPlay = "black";
+                        } else { colorToPlay = "white"; }
+                        repaint();
+                    } else { repaint(); System.out.println("Not a valid move!");}
+
                 } else {
                     if (plateau.getPiece(rowPressed, colPressed) != null) {
                         selectedPiece = new Point (rowPressed, colPressed);
