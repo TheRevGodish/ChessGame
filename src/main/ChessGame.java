@@ -67,9 +67,12 @@ public class ChessGame extends JPanel implements Runnable {
                     Piece pieceToTest = plateau.getPiece(startPositionY, startPositionX);
                     String pieceType = pieceToTest.getType();
                     String pieceColor = pieceToTest.getColor();
-                    boolean moveToTest = move.isValid(startPositionX, startPositionY,
+                    boolean moveToTestValid = move.isValid(startPositionX, startPositionY,
                                                         colPressed, rowPressed, pieceType, pieceColor);
-                    if (moveToTest) {
+                    boolean moveToTestPath = move.isPathClear(startPositionX, startPositionY,
+                            colPressed, rowPressed, plateau);
+
+                    if (moveToTestValid && moveToTestPath) {
                         //noinspection SuspiciousNameCombination
                         plateau.movePiece(startPositionX, startPositionY, rowPressed, colPressed);
                         selectedPiece = null;
@@ -92,7 +95,7 @@ public class ChessGame extends JPanel implements Runnable {
                     }
                 }
 
-                int rowToDisplay= abs((e.getY() / CASE_SIZE) - 8);
+                /*int rowToDisplay= abs((e.getY() / CASE_SIZE) - 8);
                 int colToDisplay = (e.getX() / CASE_SIZE) + 1;
                 char colChar = switch (colToDisplay) {
                     case 1 -> 'a';
@@ -105,7 +108,7 @@ public class ChessGame extends JPanel implements Runnable {
                     case 8 -> 'h';
                     default -> '_';
                 };
-                System.out.println("You clicked on: " + colChar + rowToDisplay);
+                System.out.println("You clicked on: " + colChar + rowToDisplay);*/
             }
         });
     }
